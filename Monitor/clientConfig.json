@@ -1,0 +1,26 @@
+{
+    "dev":
+    {
+        "clientList":
+        [
+            {"url" : "ws://172.20.100.60:8002/se" , "type":0},
+            {"url" : "ws://172.20.100.60:8020/ro" , "type":1}
+        ],
+        "chatChannel": "dev",
+        "reportAllTime" : 3600,
+        "reportDisconnectTime" : 60,
+        "isReportDisconnected" : false
+    },
+    "test":
+    {
+        "clientList":
+        [
+            {"url" : "ws://172.20.100.70:8004/se" , "type":0},
+            {"url" :  "ws://172.20.100.70:8020/ro" , "type":1}
+        ],
+        "chatChannel": "999",
+        "reportAllTime" : 360000,
+        "reportDisconnectTime" : 300,
+        "isReportDisconnected" : true
+    }
+}
