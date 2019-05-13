@@ -1,0 +1,451 @@
+[04/12/2019 17:18:41] connected to mattermost
+[04/12/2019 17:18:41] loading plugin "mmpy_bot.plugins"
+[04/12/2019 17:18:41] registered respond_to plugin "all" to "(.*)"
+[04/12/2019 17:18:41] keep active thread started
+[04/12/2019 17:18:41] job running thread started
+[04/15/2019 23:33:48] Requested item could not be found
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 583, in jenkins_request
+    self._request(req))
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 533, in _response_handler
+    response.raise_for_status()
+  File "/opt/py3/lib64/python3.6/site-packages/requests/models.py", line 940, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://jenkins.ops.huihuang200.com/job/test-tomcat-ops-jenkins/buildWithParameters?action_name=restart
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 38, in all
+    server.build_job(name=jobName,parameters=dict_var)
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 1278, in build_job
+    'POST', self.build_job_url(name, parameters, token)))
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 596, in jenkins_request
+    raise NotFoundException('Requested item could not be found')
+jenkins.NotFoundException: Requested item could not be found
+[04/15/2019 23:36:11] Requested item could not be found
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 583, in jenkins_request
+    self._request(req))
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 533, in _response_handler
+    response.raise_for_status()
+  File "/opt/py3/lib64/python3.6/site-packages/requests/models.py", line 940, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://jenkins.ops.huihuang200.com/job/test-tomcat-ops-jenkins/buildWithParameters?action_name=restart
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 38, in all
+    server.build_job(name=jobName,parameters=dict_var)
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 1278, in build_job
+    'POST', self.build_job_url(name, parameters, token)))
+  File "/opt/py3/lib64/python3.6/site-packages/jenkins/__init__.py", line 596, in jenkins_request
+    raise NotFoundException('Requested item could not be found')
+jenkins.NotFoundException: Requested item could not be found
+HTTPSConnectionPool(host='ops.huihuang200.com', port=443): Max retries exceeded with url: /api/ansible/ProjectDetailExceptProd?server_name=%E6%B8%B8%E6%88%8F-%E7%99%BB%E5%BD%95 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac8014668>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+[04/16/2019 14:31:52] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 28, in all
+    if s['server_name'].strip():
+TypeError: 'NoneType' object is not subscriptable
+[04/16/2019 15:51:13] HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 50, in all
+    message.comment('控制台日志输出: '+ build_info['url']+'console')
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 282, in comment
+    self.reply_thread(message)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 279, in reply_thread
+    pid=self._body['data']['post']['id'])
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 287, in send
+    files=files, pid=pid, props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+[04/16/2019 15:51:13] HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 50, in all
+    message.comment('控制台日志输出: '+ build_info['url']+'console')
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 282, in comment
+    self.reply_thread(message)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 279, in reply_thread
+    pid=self._body['data']['post']['id'])
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 287, in send
+    files=files, pid=pid, props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+Unhandled exception in thread started by <bound method WorkerPool.do_work of <mmpy_bot.utils.WorkerPool object at 0x7f2ac8ff6160>>
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+Unhandled exception in thread started by <bound method WorkerPool.do_work of <mmpy_bot.utils.WorkerPool object at 0x7f2ac8ff6160>>
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 50, in all
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    message.comment('控制台日志输出: '+ build_info['url']+'console')
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 282, in comment
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 50, in all
+    self.reply_thread(message)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 279, in reply_thread
+    pid=self._body['data']['post']['id'])
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 287, in send
+    files=files, pid=pid, props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    message.comment('控制台日志输出: '+ build_info['url']+'console')
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 282, in comment
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    self.reply_thread(message)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 279, in reply_thread
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    pid=self._body['data']['post']['id'])
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 287, in send
+    files=files, pid=pid, props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63c88>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 141, in _new_conn
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    (self.host, self.port), self.timeout, **extra_kw)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib64/python3.6/socket.py", line 745, in getaddrinfo
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 601, in urlopen
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f637f0>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    chunked=chunked)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 346, in _make_request
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    self._validate_conn(conn)
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 850, in _validate_conn
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f637f0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/utils.py", line 32, in do_work
+    conn.connect()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 284, in connect
+    self.func(msg)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 97, in dispatch_msg
+    conn = self._new_conn()
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connection.py", line 150, in _new_conn
+    msg['data']['post']['channel_id'], reply)
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63f28>: Failed to establish a new connection: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 449, in send
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    timeout=timeout
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/connectionpool.py", line 639, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/opt/py3/lib64/python3.6/site-packages/urllib3/util/retry.py", line 388, in increment
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f63f28>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/utils.py", line 32, in do_work
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    self.func(msg)
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 97, in dispatch_msg
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    msg['data']['post']['channel_id'], reply)
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 227, in channel_msg
+    props=props or {})
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 49, in create_post
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='sms.huihuang100.com', port=443): Max retries exceeded with url: /api/v4/posts (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f2ac1f637f0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+    'props': props or {}
+  File "/mnt_cmdb/mmpy_bot/mattermost.py", line 167, in post
+    verify=self.ssl_verify
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/py3/lib64/python3.6/site-packages/requests/adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions[04/16/2019 17:44:34] list index out of range
+Traceback (most recent call last):
+  File "/mnt_cmdb/mmpy_bot/dispatcher.py", line 89, in dispatch_msg
+    func(Message(self._client, msg, self._pool), *args)
+  File "/mnt_cmdb/mmpy_bot/plugins/info_cmdb.py", line 22, in all
+    jobnames = values[1]
+IndexError: list index out of range

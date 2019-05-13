@@ -1,0 +1,16 @@
+四月 25, 2019 7:16:31 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+信息: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+四月 25, 2019 7:16:42 下午 org.jenkinsci.remoting.util.AnonymousClassWarnings warn
+警告: Attempt to (de-)serialize anonymous class org.jenkinsci.plugins.envinject.EnvInjectComputerListener$2; see: https://jenkins.io/redirect/serialization-of-anonymous-classes/
+四月 25, 2019 8:11:36 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver waitForReady
+信息: Master isn't ready to talk to us on http://172.28.128.4:9091/tcpSlaveAgentListener/. Will try again: response code=503
+四月 25, 2019 8:11:46 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver waitForReady
+信息: Master isn't ready to talk to us on http://172.28.128.4:9091/tcpSlaveAgentListener/. Will try again: response code=503
+四月 25, 2019 8:11:56 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver waitForReady
+信息: Master isn't ready to talk to us on http://172.28.128.4:9091/tcpSlaveAgentListener/. Will try again: response code=503
+四月 25, 2019 8:12:06 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver waitForReady
+信息: Master isn't ready to talk to us on http://172.28.128.4:9091/tcpSlaveAgentListener/. Will try again: response code=503
+四月 25, 2019 8:12:17 下午 org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+信息: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+四月 25, 2019 8:12:32 下午 org.jenkinsci.remoting.util.AnonymousClassWarnings warn
+警告: Attempt to (de-)serialize anonymous class org.jenkinsci.plugins.envinject.EnvInjectComputerListener$2; see: https://jenkins.io/redirect/serialization-of-anonymous-classes/
