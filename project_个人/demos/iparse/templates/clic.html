@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TEMP</title>
+</head>
+
+<body>
+    <input type="button" value="+"  onclick="hello()"/>
+	<p id="display">{{ data }}</p>
+</body>
+
+<script type="text/javascript">
+   function hello()
+   {
+       $.ajax(
+      {
+         type: "GET",
+         url: "/addip",
+         dataType: "html",
+         success: function(msg)
+         {
+             console.log(msg);
+             $("#display").html(msg);//注意显示的id
+         },
+         error: function (xhr, status, error) {
+            console.log(error);
+        }
+      });
+   }
+</script>
+</html>

@@ -1,0 +1,517 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- 客服添加工单模态框（Modal） -->
+<div class="modal fade" id="addOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+	  <form  id="addOrderForm" class="form-horizontal" role="form" method="POST">
+		  <div class="modal-content">
+			 <div class="modal-header">
+				<button type="button" class="close"
+				   data-dismiss="modal" aria-hidden="true">
+					  &times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+				   添加工单
+				</h4>
+			 </div>
+			 <br/>
+
+			 <div class="space-4"></div>
+			 
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-4"> 部门 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="department"  name="department" value="{{current_user.department}}" class="col-xs-10 col-sm-5" readonly="readonly">
+				</div>
+			 </div>
+			 
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="malfunctionTime" name="malfunctionTime" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障详情 </label>
+				<div class="col-sm-9">
+				   <textarea type="text" id="malfunctionDetail" name="malfunctionDetail" class="col-xs-10 col-sm-5"></textarea>
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-4"> 记录客服 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="founder"  name="founder" value="{{current_user.username}}" class="col-xs-10 col-sm-5" readonly="readonly">
+				</div>
+			 </div>
+             
+            {% if current_user.role.name=="管理员" %}
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障原因 </label>
+				<div class="col-sm-9">
+				   <textarea type="text" id="malfunctionReason" name="malfunctionReason" class="col-xs-10 col-sm-5"></textarea>
+				</div>
+			 </div>
+             
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 处理状态 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="processStatus" name="processStatus" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 恢复时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="restoreTime" name="restoreTime" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5" readonly="readonly"> 持续时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="duration" name="duration" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 处理人 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="processPeople" name="processPeople" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+            {% endif %}
+             <div class="space-4"></div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default"
+				   data-dismiss="modal">关闭
+				</button>
+				<button id="addOrderButtion" class="btn btn-primary">
+				   确定
+				</button>
+			 </div>
+		  </div>
+	  </form>
+   </div>
+</div>
+
+<!-- 编辑工单模态框（Modal） -->
+<div class="modal fade" id="editorOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+	  <form  id="editorOrderForm" class="form-horizontal" role="form" method="POST">
+		  <div class="modal-content">
+			 <div class="modal-header">
+				<button type="button" class="close"
+				   data-dismiss="modal" aria-hidden="true">
+					  &times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+				   编辑工单
+				</h4>
+			 </div>
+			 <br/>
+
+		<div class="space-4"></div>
+        <input type="hidden" id="editorOrderId" name="editorId">
+		{% if current_user.role.name=="管理员" or current_user.role.name=="客服主管" or current_user.role.name=="客服值班" %}
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-4"> 部门 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editororderdepartment"  name="department" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editormalfunctionTime" name="malfunctionTime" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障详情 </label>
+				<div class="col-sm-9">
+				   <textarea type="text" id="editormalfunctionDetail" name="malfunctionDetail" class="col-xs-10 col-sm-5"></textarea>
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-4"> 记录客服 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editororderfounder"  name="founder"  class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             {% endif %}
+
+            {% if current_user.role.name=="管理员" or current_user.role.name=="运维值班" %}
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 故障原因 </label>
+				<div class="col-sm-9">
+				   <textarea type="text" id="editormalfunctionReason" name="malfunctionReason" class="col-xs-10 col-sm-5"></textarea>
+				</div>
+			 </div>
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 处理状态 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editorprocessStatus" name="processStatus" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 恢复时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editorrestoreTime" name="restoreTime" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+             
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 持续时间 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editorduration" name="duration" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+
+			 <div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-one-5"> 处理人 </label>
+				<div class="col-sm-9">
+				   <input type="text" id="editorprocessPeople" name="processPeople" class="col-xs-10 col-sm-5">
+				</div>
+			 </div>
+            {% endif %}
+             <div class="space-4"></div>
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default"
+				   data-dismiss="modal">关闭
+				</button>
+				<button id="editorOrderButtion" class="btn btn-primary">
+				   确定
+				</button>
+			 </div>
+		  </div>
+	  </form>
+   </div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script type="text/javascript">
+$(function(){
+
+$("#addUser").click(function(){
+    alert("需要先切换到用户列表然后添加，请重新点击添加用户");
+    window.location.href="{{url_for('auth.userList')}}";
+});
+
+$("#delUsers").click(function(){
+    alert("需要先切换到用户列表然后删除，请重新点击用户删除");
+    window.location.href="{{url_for('auth.userList')}}";
+});
+var search='<label>部门</label>:<input type="text" id="department_search">'+
+           '<label>记录客服</label>:<input type="text" id="recordCustomer_search">'+
+           '<label>处理状态</label>:<input type="text" id="processStatus_search">'+
+           '<label>处理人</label>:<input type="text" id="processPeople_search">'+
+           '<button id="search">搜索</button>';
+var search='Search: <input type="text" placeholder="search" id="filterAll">';
+$("#searchdata").html(search);
+$("#filterAll").keyup(function(){
+    $("table tbody tr")
+    .hide()
+    .filter(":contains('"+( $(this).val() )+"')")
+    .show()
+});
+var js_orders='{{js_orders|safe}}';
+orders=JSON.parse(js_orders);
+CreateOrderTable(orders);
+
+$("#search").click(function(){
+    var department=$("#department_search").val();
+    var recordCustomer=$("#recordCustomer_search").val();
+    var processStatus=$("#processStatus_search").val();
+    var processPeople=$("#processPeople_search").val();
+    var data_search=[];
+    for(i=0;i<orders.length;i++){
+        var data=orders[i];
+        if(data.department.indexOf(department)!=-1 && 
+           data.recordCustomer.indexOf(recordCustomer)!=-1 &&
+           data.processStatus.indexOf(processStatus)!=-1 &&
+           data.processPeople.indexOf(processPeople)!=-1)
+        {
+            data_search.push(data);
+        }
+    }
+    CreateOrderTable(data_search);
+});
+
+laydate.render({
+  elem: '#malfunctionTime' //指定元素
+  ,format:'yyyy-MM-dd HH:mm:ss'
+  ,type:'datetime'
+});
+laydate.render({
+  elem: '#restoreTime' //指定元素
+  ,format:'yyyy-MM-dd HH:mm:ss'
+  ,type:'datetime'
+});
+
+laydate.render({
+  elem: '#editormalfunctionTime' //指定元素
+  ,format:'yyyy-MM-dd HH:mm:ss'
+  ,type:'datetime'
+});
+laydate.render({
+  elem: '#editorrestoreTime' //指定元素
+  ,format:'yyyy-MM-dd HH:mm:ss'
+  ,type:'datetime'
+});
+
+function CreateOrderTable(orders){
+        layui.use(['laypage', 'layer'], function(){
+          var laypage = layui.laypage;
+          layer = layui.layer;
+          laypage.render({
+          elem: 'fenyedata'
+          ,count: orders.length
+          //,groups: 0
+          ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+          ,jump: function(obj){
+           function createordertableone(orders){
+            var arr = [];
+            thisData = orders.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+            layui.each(thisData, function(index, item){
+              arr.push(item);
+            });
+            return arr;
+          };   //获取分页的数据
+            
+            var htmlTitle='<table border="1" class="tablesorter" cellpadding="0" cellspacing="0" width="100%">'+
+                      '<thead><tr ><th rowspan=2><input id="checkAllTwo" name="checkAll" type="checkbox">'+
+                      '</th><th  colspan="4" >客服填写</th>'+
+                      '<th  colspan="5" >运维工程师填写</th><th rowspan="1"></th></tr>'+
+                      '<tr <tr align="center"><th >部门</th><th >故障时间</th>'+
+                      '<th >故障详情</th><th >记录客服</th>'+
+                      '<th >故障原因</th><th >处理状态</th>'+
+                      '<th >恢复时间</th><th >持续时间</th>'+
+                      '<th >处理人</th><th>管理</th></tr></thead><tbody>';
+            var pagedata = createordertableone(orders);
+            var htmlBoby='';
+            var current_role='{{current_role|safe}}';
+            current_role=JSON.parse(current_role);
+            var obj = new Object();
+            for(i=0;i<pagedata.length;i++){
+                var data=pagedata[i];
+                obj[data.id]=data;
+                var tableTitle = '<tr>';
+                var td0='<td><input name="deleteId" type="checkbox" value="'+data.id+'"></td>';
+                var td1='<td>'+data.department+'</td>';
+                var td2='<td>'+data.malfunctionTime+'</td>';
+                var td3='<td style="text-align:left">'+data.malfunctionDetail+'</td>';
+                var td4='<td>'+data.recordCustomer+'</td>';
+                var td5='<td style="text-align:left">'+data.malfunctionReason+'</td>';
+                var td6='<td>'+data.processStatus+'</td>';
+                var td7='<td>'+data.restoreTime+'</td>';
+                var td8='<td>'+data.duration+'</td>';
+                var td9='<td>'+data.processPeople+'</td>';
+                var editordata = data.id+'|||'+data.department+'|||'+data.malfunctionTime+'|||'+data.malfunctionDetail+
+                                '|||'+data.recordCustomer+'|||'+data.malfunctionReason+'|||'+data.processStatus+
+                                '|||'+data.restoreTime+'|||'+data.duration+'|||'+data.processPeople;
+                var editororder='<button class="editororderid" value="'+editordata+'">编辑</button>';
+                if(current_role.role=="管理员" || current_role.role=="运维值班"){
+                    var delorder='<button class="delorderid" value="'+data.id+'">删除</button>';
+                }
+                else{
+                    var delorder='<button class="delorderid" disabled="disabled" value="'+data.id+'">删除</button>';
+                }
+                var td10='<td>'+editororder+delorder+'</td>';
+                var tableFoot='</tr>';
+                htmlBoby=htmlBoby+tableTitle+td0+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+tableFoot;
+              };
+                //将数据存储起来
+                var objstring = JSON.stringify(obj);
+                window.localStorage.setItem('orderdata',objstring);
+                
+                var htmlFoot='</tbody></table>';
+                var html=htmlTitle+htmlBoby+htmlFoot;
+                $('#tabledata').html(html);   //填充渲染工单表格
+
+                $(".editororderid").click(function(){
+                    //获取页面存储的数据，在任何地方都可以调用只要知道ID
+                    var orderdata = window.localStorage.getItem('orderdata');
+                    orderdata=JSON.parse(orderdata);
+
+                    var data = $(this).val();
+                    data = data.split("|||");
+                    $("#editorOrderId").val(data[0]);
+                    $("#editororderdepartment").val(data[1]);
+                    $("#editormalfunctionTime").val(data[2]);
+                    $("#editormalfunctionDetail").val(data[3].replace(/<br>/g,'\r\n'));
+                    $("#editororderfounder").val(data[4]);
+                    $("#editormalfunctionReason").val(data[5].replace(/<br>/g,'\r\n'));
+                    $("#editorprocessStatus").val(data[6]);
+                    $("#editorrestoreTime").val(data[7]);
+                    $("#editorduration").val(data[8]);
+                    $("#editorprocessPeople").val(data[9]);
+                    $("#editorOrderModal").modal("show");
+                });
+                
+                $(".delorderid").click(function(){
+                      var id = $(this).val();
+                      console.log(id);
+                      $.ajax({
+                      type: "post",
+                      url: "{{url_for('main.delOrder')}}",
+                      data:{"id":JSON.stringify(id)},
+                      dataType:"json",
+                      success:function(msg,status){
+                         alert(msg);
+                         window.location.href = "{{url_for('main.index')}}";
+                       },
+                      error:function(){
+                        console.log("error");
+                       },
+                      });
+                });
+                
+                $("#delOrders").click(function(){
+                   var idlist = [];
+                   $("input[name='deleteId']:checked").each(function(){
+                       idlist.push($(this).val());
+                   });
+                      $.ajax({
+                          type: "post",
+                          url: "{{url_for('main.delOrders')}}",
+                          data:{"ids":JSON.stringify(idlist)},
+                          dataType:"json",
+                          success:function(msg,status){
+                             alert(msg);
+                             window.location.href = "{{url_for('main.index')}}";
+                           },
+                          error:function(){
+                            console.log("error");
+                           },
+                          });
+                 });          //显示选中的
+                 
+                $("#editorOrderButtion").click(function(){
+                      $.ajax({
+                          type: "post",
+                          url: "{{url_for('main.editorOrder')}}",
+                          data:$('#editorOrderForm').serialize(),
+                          dataType:"json",
+                          success:function(msg,status){
+                             console.log("DFJ:OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIqw");
+                             console.log(msg);
+                             alert(msg);
+                             window.location.href = "{{url_for('main.index')}}";
+                           },
+                          error:function(){
+                            console.log("执行无结果");
+                            console.log("error");
+                           },
+                      });
+                });
+                 
+                $("#checkAllTwo").click(function(){
+                    if($("#checkAllTwo").is(":checked")){
+                      $("input[name='deleteId']").each(function(){
+                         $(this).prop("checked", true);
+                      });
+                    }
+                    else{
+                      $("input[name='deleteId']").each(function(){
+                         $(this).prop("checked", false);
+                      });
+                    };
+                 });          //点击表格表头全选
+                
+            }
+        });
+    });
+};    //创建工单表格结束
+
+
+$("#delOrdersRecord").click(function(){
+    var del_js_orders='{{del_js_orders|safe}}';
+    orders=JSON.parse(del_js_orders);
+    console.log(orders);
+    CreateOrderTable(orders);
+});    //点击工单删除记录显示删除列表项
+
+
+$("#addOrder").click(function(){
+    $('#addOrderModal').modal('show');
+});
+
+$("#addOrderButtion").click(function(){
+      $.ajax({
+          type: "post",
+          url: "{{url_for('main.addOrder')}}",
+          data:$('#addOrderForm').serialize(),
+          dataType:"json",
+          success:function(msg,status){
+             console.log("DFJ:OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIqw");
+             console.log(msg);
+             alert(msg);
+             window.location.href = "{{url_for('main.index')}}";
+           },
+          error:function(){
+            console.log("执行无结果");
+            console.log("error");
+           },
+      });
+});
+
+});
+</script>
+{% endblock %}
+
+{% block extra_css%}
+<style type="text/css">
+.searchbox {
+    float:right;
+    margin:10px;
+    margin-right:22px;
+}
+#filterAll {
+    height:35px;
+}
+table thead tr th {
+    text-align:center;
+}
+table tbody tr td {
+    text-align:center;
+}
+table tbody tr td .editororderid {
+    margin-top:2px;
+    margin-bottom:2px;
+    margin-right:5px;
+}
+table tbody tr td .delorderid {
+    margin-top:2px;
+    margin-bottom:2px;
+    margin-right:5px;
+}
+table {
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+tbody>tr:nth-child(2n+1){
+    background-color: white;
+}
+tbody>tr:nth-child(2n){
+    background-color: #ddd;
+}
+tbody>tr:hover{
+    background-color: yellow;
+}
+</style>
+{% endblock %}
+
+
+

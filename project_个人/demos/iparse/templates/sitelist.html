@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} 域名解析系统 {% endblock %}
+
+{% block page_content %}
+    <table class="table table-striped">
+        <caption>站点列表</caption>
+        <thead>
+           <tr>
+              <th>站点名称</th>
+              <th>网址</th>
+              <th>所属厅主</th>
+              <th>站点状态</th>
+              <th>维护状态</th>
+              <th>预计维护时间</th>
+              <th>操作</th>
+           </tr>
+        </thead>
+        <tbody>
+           <tr>
+               <td>多玩棋牌</td>
+               <td>www.duowan.org</td>
+               <td>duowan001</td>
+               <td>启用</td>
+               <td>正常</td>
+               <td>-</td>
+               <td>多玩棋牌</td>
+           </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

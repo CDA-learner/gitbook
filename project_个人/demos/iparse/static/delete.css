@@ -1,0 +1,11 @@
+
+.delete_right {
+    display: block;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 22px;
+    right: 30px;
+    background-color: red;
+}
