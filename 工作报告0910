@@ -1,0 +1,6 @@
+https://github.com/pehruby/nsbcfg/blob/master/nsbcfg/nitrofn.py
+azkaban
+AsbigData
+
+ogg           KAFKA----STORM/HAWQ  GASS/AZKABAN/REDIS 
+LOGSTASH
