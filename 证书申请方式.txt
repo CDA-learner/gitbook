@@ -1,0 +1,365 @@
+account_url = https://acme-v02.api.letsencrypt.org/acme/acct/12345678
+                                  directory
+                                      |
+                                      +--> new-nonce
+                                      |
+          +----------+----------+-----+-----+------------+
+          |          |          |           |            |
+          |          |          |           |            |
+          V          V          V           V            V
+     newAccount   newAuthz   newOrder   revokeCert   keyChange
+          |          |          |
+          |          |          |
+          V          |          V
+       account       |        order -----> cert
+                     |          |
+                     |          |
+                     |          V
+                     +------> authz
+                               | ^
+                               | | "up"
+                               V |
+                             challenge
+分解步骤：
+
+      | Action               | Request             | Response       |
+      +----------------------+---------------------+----------------+
+      | Get a nonce          | HEAD newNonce       | 204            |
+      |                      |                     |                |
+      | Create account       | POST newAccount     | 201 -> account |
+      |                      |                     |                |
+      | Submit an order      | POST newOrder       | 201 -> order   |
+      |                      |                     |                |
+      | Fetch challenges     | GET  authz          | 200            |
+      |                      |                     |                |
+      | Respond to challenge | POST challenge      | 200            |
+      |                      |                     |                |
+      | Finalize order       | POST order finalize | 200            |
+      |                      |                     |                |
+      | Poll for status      | GET  authz          | 200            |
+      |                      |                     |                |
+      | Check for new cert   | GET  cert           | 200            |
+      +----------------------+---------------------+----------------+
+
+1. get nonce:
+   request: head /acme/new-nonce HTTP/1.1  Host: example.com
+
+   response: HTTP/1.1 204 No Content
+   Replay-Nonce: oFvnlFP1wIhRlYS2jTaXbA [header]
+   Cache-Control: no-store
+
+
+2. Account Creation -->请求账户信息/创建新账户 
+         Client                                                  Server
+
+         Contact Information
+         ToS Agreement
+         Additional Data
+         Signature                     ------->
+
+                                       <-------                 Account
+
+ request:  
+   POST /acme/new-account HTTP/1.1  Host: example.com
+   Content-Type: application/jose+json
+
+   {
+     "protected": base64url({
+       "alg": "ES256",
+       "jwk": {...},
+       "nonce": "6S8IqOGY7eL2lsGoTZYifg",
+       "url": "https://example.com/acme/new-account"
+     }),
+     "payload": base64url({
+       "termsOfServiceAgreed": true,
+       "contact": [
+         "mailto:cert-admin@example.com",
+         "mailto:admin@example.com"
+       ]
+     }),
+     "signature": "RZPOnYoPs1PhjszF...-nh6X1qtOFPB519I"
+   }
+
+response:
+   {
+     "status": "valid",
+
+     "contact": [
+       "mailto:cert-admin@example.com",
+       "mailto:admin@example.com"
+     ]
+   }
+
+
+3. Ordering a Certificate-->提交订单信息,带上identifiers (2种方式)
+         Order
+         Signature                     ------->
+                                       <-------  Required Authorizations
+
+   3.1提交订单信息
+   request:
+     POST /acme/new-order  Host: example.com
+     Content-Type: application/jose+json
+   
+       {
+         "protected": base64url({
+           "alg": "ES256",
+           "kid": "https://example.com/acme/acct/1",
+           "nonce": "5XJ1L3lEkMG7tR6pA00clA",
+           "url": "https://example.com/acme/new-order"
+         }),
+         "payload": base64url({
+           "identifiers": [{"type:"dns","value":"example.com"}],
+           "notBefore": "2016-01-01T00:00:00Z",
+           "notAfter": "2016-01-08T00:00:00Z"
+         }),
+         "signature": "H6ZXtGjTZyUnPeKn...wEA4TklBdh3e454g"
+       }
+  
+   response:
+       HTTP/1.1 201 Created
+       Replay-Nonce: MYAuvOpaoIiywTezizk5vw
+       Location: https://example.com/acme/order/asdf
+  
+       {
+         "status": "pending",
+         "expires": "2016-01-01T00:00:00Z",
+  
+         "notBefore": "2016-01-01T00:00:00Z",
+         "notAfter": "2016-01-08T00:00:00Z",
+  
+         "identifiers": [
+           { "type:"dns", "value":"example.com" },
+           { "type:"dns", "value":"www.example.com" }
+         ],
+  
+         "authorizations": [
+           "https://example.com/acme/authz/1234",
+           "https://example.com/acme/authz/2345"
+         ],
+  
+         "finalize": "https://example.com/acme/order/asdf/finalize"
+       }
+
+  3.2 pre-authorization:(optional)
+  request:
+     POST /acme/new-authz Host: example.com
+     Content-Type: application/jose+json
+     {
+       "protected": base64url({
+         "alg": "ES256",
+         "kid": "https://example.com/acme/acct/1",
+         "nonce": "uQpSjlRb4vQVCjVYAyyUWg",
+         "url": "https://example.com/acme/new-authz"
+       }),
+       "payload": base64url({
+         "identifier": {
+           "type": "dns",
+           "value": "example.net"
+         }
+       }),
+       "signature": "nuSDISbWG8mMgE7H...QyVUL68yzf3Zawps"
+     }
+ 
+ response:
+    HTTP/1.1 201 Created
+    Replay-Nonce: uQpSjlRb4vQVCjVYAyyUWg
+    {
+       "status": "valid",
+         "expires": "2015-03-01T14:09:00Z",
+  
+         "identifier": {
+           "type": "dns",
+           "value": "example.org"
+         },
+  
+       "challenges": [
+         {
+           "url": "https://example.com/acme/authz/1234/0",
+           "type": "http-01",
+           "status": "valid",
+           "token": "DGyRejmCefe7v4NfDGDKfA"
+           "validated": "2014-12-01T12:05:00Z",
+           "keyAuthorization": "SXQe-2XODaDxNR...vb29HhjjLPSggwiE"
+         }
+       ]
+    }
+  
+   
+4. Identifier Authorization  -->验证域名信息。identifiers
+
+
+         Responses
+         Signature                     ------->
+
+                             <~~~~~~~~Validation~~~~~~~~>
+
+                                       <-------             Certificate
+   4.1获取账户 identifier验证信息-->get_dns_challenge
+   reuqets: GET /acme/authz/1234 HTTP/1.1   Host: example.com
+   获取dns: GET /acme/authz/1234/2
+   
+     
+   
+   reponse: 
+      Link: <https://example.com/acme/some-directory>;rel="index"
+   
+      {
+        "status": "pending",
+        "expires": "2018-03-03T14:09:00Z",
+   
+        "identifier": {
+          "type": "dns",
+          "value": "example.org"
+        },
+   
+        "challenges": [
+          {
+            "type": "http-01",
+            "url": "https://example.com/acme/authz/1234/0",
+            "token": "DGyRejmCefe7v4NfDGDKfA"
+          },
+          {
+            "type": "dns-01",
+            "url": "https://example.com/acme/authz/1234/2",
+            "token": "DGyRejmCefe7v4NfDGDKfA"
+          }
+        ]
+      }
+   
+   4.2 完成challenge:
+    POST /acme/authz/1234/0   Host: example.com
+    Content-Type: application/jose+json
+    
+    request:
+     {
+       "protected": base64url({
+         "alg": "ES256",
+         "kid": "https://example.com/acme/acct/1",
+         "nonce": "Q_s3MWoqT05TrdkM2MTDcw",
+         "url": "https://example.com/acme/authz/1234/0"
+       }),
+       "payload": base64url({
+         "keyAuthorization": "IlirfxKKXA...vb29HhjjLPSggwiE"
+       }),
+       "signature": "9cbg5JO1Gf5YLjjz...SpkUfcdPai9uVYYQ"
+     }
+    
+    response:
+          {
+           "status": "valid",
+           "expires": "2018-09-09T14:09:00Z",
+   
+           "identifier": {"type": "dns",
+                          "value": "example.org"
+           },
+   
+           "challenges": [
+          {
+            "type": "http-01"
+            "url": "https://example.com/acme/authz/1234/0",
+            "status": "valid",
+            "validated": "2014-12-01T12:05:00Z",
+            "token": "IlirfxKKXAsHtmzK29Pj8A",
+            "keyAuthorization": "IlirfxKKXA...vb29HhjjLPSggwiE"
+          }
+        ]
+      }
+   
+5. finalize order
+request:
+   POST /acme/order/asdf/finalize Host: example.com
+   Content-Type: application/jose+json
+
+   {
+     "protected": base64url({
+       "alg": "ES256",
+       "kid": "https://example.com/acme/acct/1",
+       "nonce": "MSF2j2nawWHPxxkE3ZJtKQ",
+       "url": "https://example.com/acme/order/asdf/finalize"
+     }),
+     "payload": base64url({
+       "csr": "5jNudRx6Ye4HzKEqT5...FS6aKdZeGsysoCo4H9P",
+     }),
+     "signature": "uOrUfIIk5RyQ...nw62Ay1cl6AB"
+   }
+
+reponse:
+   HTTP/1.1 200 Ok
+   Replay-Nonce: CGf81JWBsq8QyIgPCi9Q9X
+   Location: https://example.com/acme/order/asdf
+
+    {
+    "status": "valid",
+    "expires": "2016-01-01T00:00:00Z",
+
+       "notBefore": "2016-01-01T00:00:00Z",
+       "notAfter": "2016-01-08T00:00:00Z",
+
+       "identifiers": [
+         { "type:"dns", "value":"example.com" },
+         { "type:"dns", "value":"www.example.com" }
+       ],
+
+       "authorizations": [
+         "https://example.com/acme/authz/1234",
+         "https://example.com/acme/authz/2345"
+       ],
+
+       "finalize": "https://example.com/acme/order/asdf/finalize",
+
+       "certificate": "https://example.com/acme/cert/asdf"
+      }  
+
+
+6.new Certificate download
+request:  GET /acme/cert/asdf  Host: example.com
+           Accept: application/pkix-cert
+response:
+   HTTP/1.1 200 OK
+   Content-Type: application/pem-certificate-chain
+   Link: <https://example.com/acme/some-directory>;rel="index"
+
+   -----BEGIN CERTIFICATE-----
+   [End-entity certificate contents]
+   -----END CERTIFICATE-----
+   -----BEGIN CERTIFICATE-----
+   [Issuer certificate contents]
+   -----END CERTIFICATE-----
+   -----BEGIN CERTIFICATE-----
+   [Other certificate contents]
+   -----END CERTIFICATE-----
+
+
+
+Replay-Nonce:用于阻止不明请求 base64
+jws:json_web_signature
+
+
+   o  Account resources, representing information about an account
+      (Section 7.1.2, Section 7.3)
+
+   o  Order resources, representing an account's requests to issue
+      certificates (Section 7.1.3)
+
+   o  Authorization resources, representing an account's authorization
+      to act for an identifier (Section 7.1.4)
+
+   o  Challenge resources, representing a challenge to prove control of
+      an identifier (Section 7.5, Section 8)
+
+   o  Certificate resources, representing issued certificates
+      (Section 7.4.2)
+
+   o  A "directory" resource (Section 7.1.1)
+
+   o  A "newNonce" resource (Section 7.2)
+
+   o  A "newAccount" resource (Section 7.3)
+
+   o  A "newOrder" resource (Section 7.4)
+
+   o  A "revokeCert" resource (Section 7.6)
+
+   o  A "keyChange" resource (Section 7.3.6)
+
